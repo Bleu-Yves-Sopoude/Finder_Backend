@@ -13,4 +13,4 @@ class JsonWebToken
     rescue JWT::DecodeError => e
       raise StandardError, e.message
     end
-  end
+end
