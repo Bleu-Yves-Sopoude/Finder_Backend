@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
 
   post "/login", to: "authentication#login"
-  get '/protected', to: 'protected#index'
+  get "/protected", to: "protected#index"
 
 
   # Defines the root path route ("/")

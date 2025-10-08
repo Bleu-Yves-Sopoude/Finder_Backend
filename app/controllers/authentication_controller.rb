@@ -1,6 +1,6 @@
 class AuthenticationController < ApplicationController
   # Skip the auth check so users can log in without a token
-  skip_before_action :authorize_request, only: [:login]
+  skip_before_action :authorize_request, only: [ :login ]
 
   def login
     user = User.find_by(email: params[:email])
@@ -9,7 +9,7 @@ class AuthenticationController < ApplicationController
       token = JsonWebToken.encode(user_id: user.id)
       render json: { token: token, user: user }, status: :ok
     else
-      render json: { error: 'Invalid email or password' }, status: :unauthorized
+      render json: { error: "Invalid email or password" }, status: :unauthorized
     end
   end
 end

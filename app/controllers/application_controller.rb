@@ -9,18 +9,18 @@ class ApplicationController < ActionController::API
 
     # ✅ Token checking logic
     def authorize_request
-      header = request.headers['Authorization']
-      token = header.split(' ').last if header
+      header = request.headers["Authorization"]
+      token = header.split(" ").last if header
 
       begin
         decoded = JsonWebToken.decode(token)            # Decode JWT token
         @current_user = User.find(decoded[:user_id])    # Find user by ID in token
       rescue ActiveRecord::RecordNotFound => e
-        render json: { error: 'User not found' }, status: :unauthorized
+        render json: { error: "User not found" }, status: :unauthorized
       rescue JWT::ExpiredSignature => e
-        render json: { error: 'Token has expired' }, status: :unauthorized
+        render json: { error: "Token has expired" }, status: :unauthorized
       rescue JWT::DecodeError => e
-        render json: { error: 'Invalid token' }, status: :unauthorized
+        render json: { error: "Invalid token" }, status: :unauthorized
       end
     end
-  end
+end
