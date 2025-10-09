@@ -10,16 +10,31 @@
 
 
 
-User.create!(
-  name: "Alice",
-  email: "alice@example.com",
-  password: "password",
-  password_confirmation: "password"
-)
 
-User.create!(
-  name: "Bob",
-  email: "bob@example.com",
-  password: "secure123",
-  password_confirmation: "secure123"
-)
+# Find or create a user (you can adjust this to your existing auth system)
+user = User.first || User.create!(email: "admin@example.com", password: "password")
+
+# Create sample businesses
+Business.create!([
+  {
+    name: "Joe's Coffee",
+    description: "A cozy coffee shop with a great selection of brews.",
+    address: "123 Bean St, Brewtown",
+    category: "Cafe",
+    user: user
+  },
+  {
+    name: "Techie Fix",
+    description: "Repair services for all your gadgets and devices.",
+    address: "456 Silicon Ave, Tech City",
+    category: "Repair",
+    user: user
+  },
+  {
+    name: "Green Leaf Grocery",
+    description: "Organic produce and natural groceries.",
+    address: "789 Garden Rd, Farmville",
+    category: "Grocery",
+    user: user
+  }
+])

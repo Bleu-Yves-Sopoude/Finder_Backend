@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+    has_many :businesses , dependent: :destroy
     has_secure_password
 
     validates :name, presence: true
