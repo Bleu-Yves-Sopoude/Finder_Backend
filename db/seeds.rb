@@ -12,7 +12,7 @@
 
 
 # Find or create a user (you can adjust this to your existing auth system)
-user = User.first || User.create!(email: "admin@example.com", password: "password")
+user2 =User.create!(email: "admin@example.com", password: "password")
 
 # Create sample businesses
 Business.create!([
