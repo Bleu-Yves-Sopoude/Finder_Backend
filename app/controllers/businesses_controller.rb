@@ -1,5 +1,4 @@
 class BusinessesController < ApplicationController
-
     def index
       businesses = Business.includes(:reviews).all
 
@@ -39,5 +38,4 @@ class BusinessesController < ApplicationController
         end
       }
     end
-
-  end
+end
