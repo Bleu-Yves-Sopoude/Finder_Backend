@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
-  resources :users, only: [ :create ] # if you support signup
+  resources :users, only: [:create]
 
-  resources :businesses, only: [ :index, :show ] do
-    resources :reviews, only: [ :index, :create ]
+  resources :businesses, only: [:index, :show, :create] do
+    resources :reviews, only: [:index, :create]
   end
 
   post "/login", to: "authentication#login"
