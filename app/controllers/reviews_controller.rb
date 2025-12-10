@@ -8,8 +8,8 @@ class ReviewsController < ApplicationController
 
     render json: reviews.map { |review|
       review.as_json(
-        include: { user: { only: [:id, :name, :email] } },
-        only: [:id, :rating, :comment, :created_at]
+        include: { user: { only: [ :id, :name, :email ] } },
+        only: [ :id, :rating, :comment, :created_at ]
       ).merge(
         photos: review.photos.map { |p| url_for(p) }
       )
@@ -21,8 +21,8 @@ class ReviewsController < ApplicationController
     review = @business.reviews.includes(:user).find(params[:id])
 
     render json: review.as_json(
-      include: { user: { only: [:id, :name, :email] } },
-      only: [:id, :rating, :comment, :created_at]
+      include: { user: { only: [ :id, :name, :email ] } },
+      only: [ :id, :rating, :comment, :created_at ]
     ).merge(
       photos: review.photos.map { |p| url_for(p) }
     )
@@ -35,8 +35,8 @@ class ReviewsController < ApplicationController
 
     if review.save
       render json: review.as_json(
-        include: { user: { only: [:id, :name, :email] } },
-        only: [:id, :rating, :comment, :created_at]
+        include: { user: { only: [ :id, :name, :email ] } },
+        only: [ :id, :rating, :comment, :created_at ]
       ).merge(
         photos: review.photos.map { |p| url_for(p) }
       ), status: :created
