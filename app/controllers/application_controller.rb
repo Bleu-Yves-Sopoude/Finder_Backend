@@ -2,6 +2,8 @@ class ApplicationController < ActionController::API
     # 🔐 Run this before any controller action
     before_action :authorize_request
 
+    include Rails.application.routes.url_helpers
+
     # 👤 Makes current_user available in all controllers
     attr_reader :current_user
 
