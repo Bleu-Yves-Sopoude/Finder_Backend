@@ -10,5 +10,4 @@ class Business < ApplicationRecord
   def full_address
     "#{address}"
   end
-
 end
