@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
-  resources :users, only: [:create]
+  resources :users, only: [ :create ]
 
-  resources :businesses, only: [:index, :show] do
-    resources :reviews, only: [:index, :create]
+  resources :businesses, only: [ :index, :show ] do
+    resources :reviews, only: [ :index, :create ]
 
     collection do
       get :nearby

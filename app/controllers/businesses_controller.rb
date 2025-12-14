@@ -48,7 +48,7 @@ class BusinessesController < ApplicationController
     return render json: { error: "lat and lng are required" }, status: :bad_request if lat.blank? || lng.blank?
 
     businesses = Business
-      .near([lat, lng], radius)
+      .near([ lat, lng ], radius)
       .includes(:reviews)
 
     render json: businesses.map { |b|
