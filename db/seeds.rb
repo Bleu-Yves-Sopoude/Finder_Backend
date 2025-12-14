@@ -1,6 +1,8 @@
 # This file seeds initial data for all environments.
 # It is written to be idempotent — safe to run multiple times.
 
+puts "🌱 Seeding database..."
+
 # -------------------------
 # USERS
 # -------------------------
@@ -11,64 +13,54 @@ user = User.find_or_create_by!(email: "admin@example.com") do |u|
 end
 
 # -------------------------
-# BUSINESSES
+# BUSINESSES (NYC — WITH COORDS)
 # -------------------------
 
 business_data = [
   {
-    name: "Joe's Coffee",
-    description: "A cozy coffee shop with a great selection of brews.",
-    address: "123 Bean St, Brewtown",
+    name: "Joe's Pizza",
+    description: "Famous NYC pizza spot",
+    address: "7 Carmine St, New York, NY",
+    category: "Food",
+    latitude: 40.7306,
+    longitude: -73.9866
+  },
+  {
+    name: "Central Park Cafe",
+    description: "Cafe near Central Park",
+    address: "Central Park, New York, NY",
     category: "Cafe",
-    user: user
+    latitude: 40.7851,
+    longitude: -73.9683
   },
   {
-    name: "Techie Fix",
-    description: "Repair services for all your gadgets and devices.",
-    address: "456 Silicon Ave, Tech City",
-    category: "Repair",
-    user: user
+    name: "Brooklyn Coffee Roasters",
+    description: "Artisan coffee in Brooklyn",
+    address: "25 Jay St, Brooklyn, NY",
+    category: "Coffee",
+    latitude: 40.7044,
+    longitude: -73.9867
   },
   {
-    name: "Green Leaf Grocery",
-    description: "Organic produce and natural groceries.",
-    address: "789 Garden Rd, Farmville",
-    category: "Grocery",
-    user: user
+    name: "Williamsburg Bar",
+    description: "Trendy nightlife spot",
+    address: "Williamsburg, Brooklyn, NY",
+    category: "Bar",
+    latitude: 40.7081,
+    longitude: -73.9571
   }
 ]
 
 business_data.each do |attrs|
-  record = Business.find_or_create_by!(name: attrs[:name]) do |b|
+  Business.find_or_create_by!(name: attrs[:name]) do |b|
     b.description = attrs[:description]
-    b.address = attrs[:address]
-    b.category = attrs[:category]
-    b.user = attrs[:user]
-  end
-
-  # Trigger geocoding only if no coordinates yet
-  if record.latitude.blank? || record.longitude.blank?
-    record.geocode
-    record.save!
+    b.address     = attrs[:address]
+    b.category    = attrs[:category]
+    b.latitude    = attrs[:latitude]
+    b.longitude   = attrs[:longitude]
+    b.user        = user
   end
 end
 
-# -------------------------
-# TEST BUSINESS
-# -------------------------
-
-test_business = Business.find_or_create_by!(name: "Test Cafe") do |b|
-  b.description = "A testing-only cafe for geocoding demonstration."
-  b.address     = "123 Market St, San Francisco, CA"
-  b.category    = "Cafe"
-  b.user        = user
-end
-
-
-# Geocode if needed
-if test_business.latitude.blank? || test_business.longitude.blank?
-  test_business.geocode
-  test_business.save!
-end
-
+puts "✅ Seeded #{Business.count} businesses"
 puts "🌱 Seed complete: #{User.count} users, #{Business.count} businesses."
