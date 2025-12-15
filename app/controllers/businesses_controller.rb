@@ -50,7 +50,7 @@ class BusinessesController < ApplicationController
   return render json: { error: "lat and lng required" }, status: :bad_request if lat.blank? || lng.blank?
 
   businesses = Business
-    .near([lat, lng], radius)
+    .near([ lat, lng ], radius)
     .includes(:reviews)
     .search(params[:query])
     .with_min_rating(params[:min_rating])

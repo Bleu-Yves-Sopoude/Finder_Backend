@@ -27,5 +27,4 @@ scope :with_min_rating, ->(rating) {
     .group("businesses.id")
     .having("COALESCE(AVG(reviews.rating), 0) >= ?", rating)
 }
-
 end
