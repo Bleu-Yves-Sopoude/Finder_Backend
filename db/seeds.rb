@@ -1,12 +1,8 @@
-# This file seeds initial data for all environments.
-# It is written to be idempotent — safe to run multiple times.
-
 puts "🌱 Seeding database..."
 
 # -------------------------
 # USERS
 # -------------------------
-
 user = User.find_or_create_by!(email: "admin@example.com") do |u|
   u.name = "Admin User"
   u.password = "password"
@@ -15,7 +11,6 @@ end
 # -------------------------
 # BUSINESSES (NYC — WITH COORDS)
 # -------------------------
-
 business_data = [
   {
     name: "Joe's Pizza",
@@ -62,5 +57,4 @@ business_data.each do |attrs|
   end
 end
 
-puts "✅ Seeded #{Business.count} businesses"
-puts "🌱 Seed complete: #{User.count} users, #{Business.count} businesses."
+# -----------------------

@@ -1,16 +1,18 @@
 class BusinessesController < ApplicationController
   def index
-    businesses = Business.includes(:reviews).all
+    businesses = Business
+    .search(params[:query])
+    .with_min_rating(params[:min_rating])
 
-    render json: businesses.map { |b|
-      {
-        id: b.id,
-        name: b.name,
-        category: b.category,
-        address: b.address,
-        average_rating: b.reviews.average(:rating)&.round(1)
-      }
+  render json: businesses.map { |b|
+    {
+      id: b.id,
+      name: b.name,
+      category: b.category,
+      address: b.address,
+      average_rating: b.reviews.average(:rating)&.round(1)
     }
+  }
   end
 
   def show
@@ -42,24 +44,26 @@ class BusinessesController < ApplicationController
   # ✅ DAY 22
   def nearby
     lat = params[:lat]
-    lng = params[:lng]
-    radius = (params[:radius] || 5).to_f
+  lng = params[:lng]
+  radius = (params[:radius] || 5).to_f
 
-    return render json: { error: "lat and lng are required" }, status: :bad_request if lat.blank? || lng.blank?
+  return render json: { error: "lat and lng required" }, status: :bad_request if lat.blank? || lng.blank?
 
-    businesses = Business
-      .near([ lat, lng ], radius)
-      .includes(:reviews)
+  businesses = Business
+    .near([lat, lng], radius)
+    .includes(:reviews)
+    .search(params[:query])
+    .with_min_rating(params[:min_rating])
 
-    render json: businesses.map { |b|
-      {
-        id: b.id,
-        name: b.name,
-        category: b.category,
-        address: b.address,
-        average_rating: b.reviews.average(:rating)&.round(1),
-        distance: b.distance.round(2)
-      }
+  render json: businesses.map { |b|
+    {
+      id: b.id,
+      name: b.name,
+      category: b.category,
+      address: b.address,
+      average_rating: b.reviews.average(:rating)&.round(1),
+      distance: b.distance.round(2)
     }
+  }
   end
 end
