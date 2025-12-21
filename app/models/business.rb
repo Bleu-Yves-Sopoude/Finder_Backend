@@ -2,11 +2,15 @@ class Business < ApplicationRecord
   has_many :reviews, dependent: :destroy
   belongs_to :user, optional: true
 
+  has_many_attached :photos
+  has_one_attached :cover_image
+
 
   validates :name, :description, :address, :category, presence: true
 
   geocoded_by :address
   after_validation :geocode, if: -> { will_save_change_to_address? && Rails.env.production? }
+
 
 
   def full_address
