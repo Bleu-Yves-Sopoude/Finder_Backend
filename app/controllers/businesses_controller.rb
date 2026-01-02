@@ -68,6 +68,8 @@ class BusinessesController < ApplicationController
         description: business.description,
         address: business.address,
         category: business.category,
+        latitude: business.latitude,
+        longitude: business.longitude,
         photos: business.photos.map { |p| url_for(p) },
         cover_image: business.cover_image.attached? ? url_for(business.cover_image) : nil
       }, status: :created
@@ -107,8 +109,8 @@ class BusinessesController < ApplicationController
 
   private
 
-  # Only allow these params
+  # ✅ Permit latitude and longitude here
   def business_params
-    params.permit(:name, :description, :address, :category, photos: [])
+    params.permit(:name, :description, :address, :category, :latitude, :longitude, photos: [])
   end
 end
