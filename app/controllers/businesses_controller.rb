@@ -1,5 +1,5 @@
 class BusinessesController < ApplicationController
-  before_action :authorize_request, only: [:create]
+  before_action :authorize_request, only: [ :create ]
   include Rails.application.routes.url_helpers
 
   # GET /businesses
@@ -89,7 +89,7 @@ class BusinessesController < ApplicationController
     end
 
     businesses = Business
-      .near([lat, lng], radius)
+      .near([ lat, lng ], radius)
       .includes(:reviews)
       .search(params[:query])
       .with_min_rating(params[:min_rating])
