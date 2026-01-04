@@ -1,53 +1,80 @@
-# This file seeds initial data for all environments.
-# It is written to be idempotent — safe to run multiple times.
-
 puts "🌱 Seeding database..."
 
 # -------------------------
 # USERS
 # -------------------------
-
 user = User.find_or_create_by!(email: "admin@example.com") do |u|
   u.name = "Admin User"
   u.password = "password"
 end
 
 # -------------------------
-# BUSINESSES (NYC — WITH COORDS)
+# BUSINESSES — BOUAKÉ (FORMAT 2 OK)
 # -------------------------
-
 business_data = [
   {
-    name: "Joe's Pizza",
-    description: "Famous NYC pizza spot",
-    address: "7 Carmine St, New York, NY",
-    category: "Food",
-    latitude: 40.7306,
-    longitude: -73.9866
+    name: "Seen Ranhotel Restaurant",
+    description: "Cadre élégant, cuisine internationale et ivoirienne raffinée.",
+    address: "Quartier Commerce, Rue Reine Pokou, Bouaké",
+    category: "Restaurant",
+    latitude: 7.6868,
+    longitude: -5.0315
   },
   {
-    name: "Central Park Cafe",
-    description: "Cafe near Central Park",
-    address: "Central Park, New York, NY",
-    category: "Cafe",
-    latitude: 40.7851,
-    longitude: -73.9683
+    name: "Maquis le 50tenaire",
+    description: "Le maquis iconique de Bouaké pour l'attiéké-poisson.",
+    address: "Quartier Air France 1, Bouaké",
+    category: "Restaurant",
+    latitude: 7.7025,
+    longitude: -5.0152
   },
   {
-    name: "Brooklyn Coffee Roasters",
-    description: "Artisan coffee in Brooklyn",
-    address: "25 Jay St, Brooklyn, NY",
-    category: "Coffee",
-    latitude: 40.7044,
-    longitude: -73.9867
+    name: "Espace Sinai",
+    description: "Spécialités locales et calme assuré.",
+    address: "Air France 3, Bouaké",
+    category: "Restaurant",
+    latitude: 7.7081,
+    longitude: -5.0089
   },
   {
-    name: "Williamsburg Bar",
-    description: "Trendy nightlife spot",
-    address: "Williamsburg, Brooklyn, NY",
-    category: "Bar",
-    latitude: 40.7081,
-    longitude: -73.9571
+    name: "Hotel Le Bahut",
+    description: "Hôtel avec piscine, calme et sécurisé.",
+    address: "Quartier Soukoura, Bouaké",
+    category: "Hotel",
+    latitude: 7.6744,
+    longitude: -5.0356
+  },
+  {
+    name: "Hôtel Cauris d'Or",
+    description: "Modernité au cœur du Gbeke.",
+    address: "Avenue de la Fraternité, Bouaké",
+    category: "Hotel",
+    latitude: 7.6892,
+    longitude: -5.0247
+  },
+  {
+    name: "Sococe Bouaké",
+    description: "Centre commercial majeur.",
+    address: "Route de Béoumi, Bouaké",
+    category: "Supermarche",
+    latitude: 7.6958,
+    longitude: -5.0421
+  },
+  {
+    name: "NASCO Electronics",
+    description: "Électroménager et High-Tech.",
+    address: "Quartier Commerce, Bouaké",
+    category: "Boutique",
+    latitude: 7.6875,
+    longitude: -5.0298
+  },
+  {
+    name: "Pharmacie du Marché de Gros",
+    description: "Pharmacie 24h/24 près du marché de gros.",
+    address: "Quartier Dougouba, Bouaké",
+    category: "Pharmacie",
+    latitude: 7.7122,
+    longitude: -5.0255
   }
 ]
 
@@ -62,5 +89,4 @@ business_data.each do |attrs|
   end
 end
 
-puts "✅ Seeded #{Business.count} businesses"
-puts "🌱 Seed complete: #{User.count} users, #{Business.count} businesses."
+puts "✅ #{Business.count} commerces géolocalisés à Bouaké créés."
